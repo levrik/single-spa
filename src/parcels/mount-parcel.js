@@ -6,7 +6,6 @@ import {
   NOT_BOOTSTRAPPED,
   NOT_MOUNTED,
   MOUNTED,
-  UNMOUNTING,
   LOADING_SOURCE_CODE,
   SKIP_BECAUSE_BROKEN,
   toName,
@@ -95,7 +94,7 @@ export function mountParcel(config, customProps) {
     unmountThisParcel() {
       // In some cases it is possible for a parcel to be in an unmounting status when `unmountThisParcel` is called a second time.
       // https://github.com/single-spa/single-spa/issues/1184
-      if (parcel.status === UNMOUNTING && parcel.internalUnmountPromise) {
+      if (parcel.internalUnmountPromise) {
         return parcel.internalUnmountPromise;
       } else {
         const unmountPromise = mountPromise
