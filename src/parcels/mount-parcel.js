@@ -95,7 +95,7 @@ export function mountParcel(config, customProps) {
     unmountThisParcel() {
       // In some cases it is possible for a parcel to be in an unmounting status when `unmountThisParcel` is called a second time.
       // https://github.com/single-spa/single-spa/issues/1184
-      if (parcel.status === UNMOUNTING && !!parcel.internalUnmountPromise) {
+      if (parcel.status === UNMOUNTING && parcel.internalUnmountPromise) {
         return parcel.internalUnmountPromise;
       } else {
         const unmountPromise = mountPromise
@@ -122,6 +122,7 @@ export function mountParcel(config, customProps) {
           })
           .then((value) => {
             resolveUnmount(value);
+            delete this.internalUnmountPromise;
             return value;
           })
           .catch((err) => {
