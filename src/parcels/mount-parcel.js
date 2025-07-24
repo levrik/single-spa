@@ -121,7 +121,7 @@ export function mountParcel(config, customProps) {
           })
           .then((value) => {
             resolveUnmount(value);
-            delete this.internalUnmountPromise;
+            this.internalUnmountPromise = undefined;
             return value;
           })
           .catch((err) => {
